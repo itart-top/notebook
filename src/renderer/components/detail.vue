@@ -15,6 +15,7 @@
         <div class="main-panel">
             <div class="top-bar">
                 <el-button type="text" size="mini" :icon="toggleIcon" style="float: left; margin-left: 5px; font-size: 20px; padding: 3px 0;" @click="sidebarOpen = !sidebarOpen"></el-button>
+                <el-button type="text" size="mini" :icon="locked? 'el-icon-unlock' : 'el-icon-lock'" @click="() => onAlwaysTop()"></el-button>
                 <el-button type="text" size="mini" icon="el-icon-minus" @click="() => onMinScreen()"></el-button>
                 <el-button type="text" size="mini" icon="el-icon-full-screen" @click="() => onFullScreen()"></el-button>
                 <el-button type="text" size="mini" icon="el-icon-close" @click="onClose"></el-button>
@@ -77,6 +78,7 @@
     name: 'PostDetail',
     data () {
       return {
+        locked: false,
         richContent: undefined,
         editorElement: undefined,
         list: [],
@@ -262,6 +264,10 @@
       },
       onMinScreen () {
         ipc.send('detail-win-min')
+      },
+      onAlwaysTop () {
+        this.locked = !this.locked
+        ipc.send('detail-always-top', this.locked)
       },
       onEditorBlur (quill) {
         // console.log('editor blur!', quill)

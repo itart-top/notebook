@@ -11,6 +11,7 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 let mainWindow
+
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
@@ -31,7 +32,7 @@ app.on('web-contents-created', (e, webContents) => {
 app.on('ready', () => {
   tray = new Tray(iconPath)
   const contextMenu = Menu.buildFromTemplate([
-    { label: 'Item3', type: 'radio', checked: true },
+    // { label: 'Item3', type: 'radio', checked: true },
     {
       label: '退出',
       click: function () {
@@ -93,6 +94,9 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+ipcMain.on('detail-always-top', (event, flag) => {
+  detailWin.setAlwaysOnTop(flag)
+})
 
 app.on('activate', () => {
   if (mainWindow === null) {
@@ -112,7 +116,7 @@ ipcMain.on('open-detail', (event, item) => {
 function setDetailPosition () {
   const offset = 10
   let detailX = mainWindow.getBounds().x - detailWin.getBounds().width - offset + 12
-  if (detailX < 0) {
+  if (detailX < -(detailWin.getBounds().width / 2)) {
     detailX = mainWindow.getBounds().x + mainWindow.getBounds().width + offset - 12
   }
   detailWin.setPosition(detailX, mainWindow.getBounds().y + 5)
