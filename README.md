@@ -1,6 +1,6 @@
-# itart-note
+# 虾记
 
-> my note
+> 简介的笔记本软件，使用VUE + Element UI + Electron
 
 #### Build Setup
 
