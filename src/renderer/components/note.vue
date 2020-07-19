@@ -3,7 +3,7 @@
         <div class="search">
             <el-input v-model="search.keyword" size="mini"  @keyup.enter.native='doSearch'>
                 <el-button slot="append" type="text" icon="el-icon-plus" @click="add" circle></el-button>
-                <el-select v-model="search.tag" slot="prepend" placeholder="分类" filterable clearable >
+                <el-select v-model="search.tag" slot="prepend" placeholder="分类" class="tag" filterable clearable >
                     <el-option v-for="item in tags"
                                :key="item.name"
                                :label="item.name"
@@ -166,8 +166,13 @@
         font-size: 12px;
     }
     .favorite-tab {
-        .el-input__inner {
+        .el-input-group > .el-input__inner {
             border-radius: unset;
+            padding: 0 0 0 2px
+        }
+        .el-input__inner {
+            padding: 0 5px;
+            vertical-align: middle;
         }
         .el-input-group__append {
             border-radius: unset;

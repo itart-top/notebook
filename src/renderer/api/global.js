@@ -10,8 +10,12 @@ const db = new DataStore({
 const tag = new DataStore({
   filename: path.join(dbPath, '/tag.db')
 })
+const favorite = new DataStore({
+  filename: path.join(dbPath, '/favorite.db')
+})
 export {
   db,
   tag,
-  filePath
+  filePath,
+  favorite
 }

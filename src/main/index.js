@@ -1,7 +1,7 @@
 'use strict'
-
-import { app, BrowserWindow, ipcMain, Tray, Menu, MenuItem } from 'electron'
-
+// shell
+import { app, shell, BrowserWindow, ipcMain, Tray, Menu, MenuItem } from 'electron'
+// const exec = require('child_process').exec
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -21,6 +21,13 @@ let tray = null
 let detailWin
 let delayDetailWin
 
+app.on('web-contents-created', (e, webContents) => {
+  webContents.on('new-window', (event, url) => {
+    event.preventDefault()
+    shell.openExternal(url)
+  })
+})
+
 app.on('ready', () => {
   tray = new Tray(iconPath)
   const contextMenu = Menu.buildFromTemplate([
@@ -28,16 +35,7 @@ app.on('ready', () => {
     {
       label: '退出',
       click: function () {
-        mainWindow && mainWindow.close()
-        let allWindows = BrowserWindow.getAllWindows()
-        let win
-        for (let i = 0; i < allWindows.length; i++) {
-          win = allWindows[i]
-          win.isDestroyed() || win.close()
-        }
-        tray.destroy()
-        mainWindow = null
-        app.quit()
+        closeApp()
       }
     }
   ])
@@ -47,13 +45,24 @@ app.on('ready', () => {
   })
   tray.setContextMenu(contextMenu)
 })
-
+function closeApp () {
+  mainWindow && mainWindow.close()
+  let allWindows = BrowserWindow.getAllWindows()
+  let win
+  for (let i = 0; i < allWindows.length; i++) {
+    win = allWindows[i]
+    win.isDestroyed() || win.close()
+  }
+  tray.destroy()
+  mainWindow = null
+  app.quit()
+}
 function createWindow () {
   /**
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    title: 'Hello Note',
+    title: '虾记',
     width: 300,
     height: 700,
     // alwaysOnTop: true,
@@ -70,7 +79,6 @@ function createWindow () {
     mainWindow.show()
   })
   mainWindow.loadURL(winURL)
-  // mainWindow.flashFrame(true)
   mainWindow.on('closed', () => {
     mainWindow = null
   })
@@ -142,7 +150,7 @@ function createDetailWin (item) {
   })
 }
 ipcMain.on('main-win-close', function () {
-  mainWindow.hide()
+  closeApp()
 })
 
 ipcMain.on('main-win-min', function () {

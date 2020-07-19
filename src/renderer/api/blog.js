@@ -11,7 +11,6 @@ export function update (data) {
       defer.reject(err)
       return
     }
-    console.log('data', data)
     db.update({_id: data._id}, {
       $set: {
         content: data.content,

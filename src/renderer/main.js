@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import App from './App'
 import router from './router'
-import { Tabs, TabPane, Button, Input, Menu, MenuItem, Tag, Select, Option } from 'element-ui'
+import { Tabs, TabPane, Button, Input, Menu, MenuItem, Tag, Select, Option, Divider } from 'element-ui'
 import store from './store'
 /* import 'bootstrap/dist/js/bootstrap.bundle.min'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -23,6 +23,7 @@ Vue.use(MenuItem)
 Vue.use(Tag)
 Vue.use(Select)
 Vue.use(Option)
+Vue.use(Divider)
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios

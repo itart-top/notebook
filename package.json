@@ -2,7 +2,7 @@
   "name": "itart-note",
   "version": "0.0.1",
   "author": "hyman <itart.top@gmail.com>",
-  "description": "my note",
+  "description": "虾（瞎）记",
   "license": null,
   "main": "./dist/electron/main.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "itart-note",
+    "productName": "虾记",
     "appId": "top.itart.note",
     "directories": {
       "output": "build"

@@ -2,8 +2,8 @@
   <div class="itart-main"
        :style="{ background: 'url(' + bg + ')', backgroundSize: '290px 100px', backgroundRepeat: 'no-repeat', backgroundColor: 'white', backgroundOrigin: 'border-box'}">
     <div class="main-top-bar ">
-      <!--            <el-button size="mini" type="text" icon="el-icon-minus" @click="onMin"></el-button>-->
-      <el-button size="mini" type="text" icon="el-icon-minus" @click="onClose"></el-button>
+      <el-button size="mini" type="text" icon="el-icon-minus" @click="onMin"></el-button>
+      <el-button size="mini" type="text" icon="el-icon-close" @click="onClose"></el-button>
     </div>
     <div class="main-content ">
       <el-tabs v-model="activeName" @tab-click="handleClick" class="art-tabs">
@@ -17,31 +17,25 @@
 </template>
 
 <script>
-  import Task from './task'
   import Note from './note'
-  import Post from './post'
   import Favorite from './favorite'
 
   const {ipcRenderer} = require('electron')
 
   export default {
     name: 'main-page',
-    components: {Task, Post, Favorite},
+    components: {Note, Favorite},
     data () {
       // {id: 'post', name: 'Post', com: Post},
       // {id: 'task', name: 'Task', com: Task},
       this.coms = [{
         id: 'note',
-        name: '笔记',
+        name: '虾记',
         com: Note
       }, {
         id: 'favorite',
         name: '收藏',
         com: Favorite
-      }, {
-        id: 'Post',
-        name: '博客',
-        com: Post
       }]
       return {
         bg: 'static/image/bg.png',
