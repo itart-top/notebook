@@ -93,11 +93,11 @@ export function read (id) {
       defer.reject(err)
       return
     }
-    db.findOne({id: id}, {content: 1}, function (err, data) {
+    db.findOne({_id: id}, {content: 1, name: 1}, function (err, data) {
       if (err) {
         defer.reject(err)
       } else {
-        defer.resolve(data.content)
+        defer.resolve(data)
       }
     })
   })

@@ -40,7 +40,7 @@ app.on('ready', () => {
       }
     }
   ])
-  tray.setToolTip('我的笔记')
+  tray.setToolTip('虾（瞎）记')
   tray.on('double-click', function () {
     mainWindow.isVisible() && !mainWindow.isMinimized() ? mainWindow.hide() : mainWindow.show()
   })
@@ -131,6 +131,7 @@ function createDetailWin (item) {
     detailWin = new BrowserWindow({
       width: 900,
       height: 698,
+      title: '虾记',
       transparent: true, // 透明
       show: false,
       webPreferences: { webSecurity: false },

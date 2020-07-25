@@ -89,7 +89,7 @@
           // some quill options
         },
         timeout: undefined,
-        sidebarOpen: false, // 默认收缩
+        sidebarOpen: undefined, // 默认收缩
         histories: [],
         fullscreen: false,
         $toolbar: undefined,
@@ -112,8 +112,10 @@
       },
       list: {
         handler (v) {
-          this.sidebarOpen = v.length > 1
-          this.$nextTick(this.resize)
+          if (this.sidebarOpen === undefined && v.length > 1) {
+            this.sidebarOpen = true
+            this.$nextTick(this.resize)
+          }
         },
         deep: true
       },
@@ -379,11 +381,12 @@
       },
       loadData (cmd) {
         if (cmd.type === 'favorite' && cmd.action === 'view') {
-          return readApi(cmd.data.id).then(r => {
-            cmd.data.content = r
+          return readApi(cmd.data._id).then(r => {
             this.currItem = cmd.data
             this.currItem.type = cmd.type
             this.currItem.action = cmd.action
+            this.currItem.content = r.content
+            this.currItem.name = r.name
             this.list.push(this.currItem)
           }).catch(err => {
             console.log('err', err)
